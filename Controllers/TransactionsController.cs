@@ -9,9 +9,11 @@ namespace TransactionApi.Controllers
     {
         private readonly TransactionService _transactionService;
 
-        public TransactionsController(TransactionService transactionService)
+        private readonly ILogger<TransactionsController> _logger;
+        public TransactionsController(TransactionService transactionService, ILogger<TransactionsController> logger)
         {
             _transactionService = transactionService;
+            _logger = logger;
         }
 
         [HttpGet("daily-totals")]
@@ -19,13 +21,16 @@ namespace TransactionApi.Controllers
         {
             try
             {
+                // throw new InvalidOperationException("This is a test exception!");
                 var transactions = _transactionService.GetSampleTransactions();
                 var totals = _transactionService.CalculateDailyTotals(transactions);
+                
                 return Ok(totals);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // Log ex to logging
+                _logger.LogError(ex, "An unhandled exception occured while calculating daily totals");
+
                 return StatusCode(500, "Any internal server error occured");
             }
         }
