@@ -16,7 +16,7 @@ echo "Step 2: Tagging the image for ECR..."
 docker tag $image_name:latest $ecr_uri
 
 echo "Step 3: Authenticating with ECR..."
-aws ecr get-login-password --region $aws_region | docker login --username AWS --password-stdin $aws_account_id.dkr.ecr.$aws_region.amazonaws.com
+aws ecr get-login-password --region $aws_region --profile personal | docker login --username AWS --password-stdin $aws_account_id.dkr.ecr.$aws_region.amazonaws.com
 
 echo "Step 4: Pushing the image to ECR..."
 docker push $ecr_uri
