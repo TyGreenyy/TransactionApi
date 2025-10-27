@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="TransactionApi.Tests\**\*" />
+    <EmbeddedResource Remove="TransactionApi.Tests\**\*" />
+    <None Remove="TransactionApi.Tests\**\*" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 

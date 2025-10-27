@@ -23,7 +23,7 @@ namespace TransactionApi.Controllers
                 var totals = _transactionService.CalculateDailyTotals(transactions);
                 return Ok(totals);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Log ex to logging
                 return StatusCode(500, "Any internal server error occured");
