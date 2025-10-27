@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TransactionApi.Services;
 
@@ -7,7 +8,7 @@ namespace TransactionApi.Controllers
     [Route("api/[controller]")]
     public class TransactionsController : ControllerBase
     {
-        private readonly TransactionService _transactionService;
+        private readonly ITransactionService _transactionService;
 
         private readonly ILogger<TransactionsController> _logger;
         public TransactionsController(TransactionService transactionService, ILogger<TransactionsController> logger)
@@ -17,14 +18,14 @@ namespace TransactionApi.Controllers
         }
 
         [HttpGet("daily-totals")]
-        public IActionResult GetDailyTotals()
+        public async Task<IActionResult> GetDailyTotals()
         {
             try
             {
                 // throw new InvalidOperationException("This is a test exception!");
-                var transactions = _transactionService.GetSampleTransactions();
-                var totals = _transactionService.CalculateDailyTotals(transactions);
-                
+                var transactions = await _transactionService.GetSampleTransactionsAsync();
+                var totals = await _transactionService.CalculateDailyTotalsAsync(transactions);
+
                 return Ok(totals);
             }
             catch (Exception ex)

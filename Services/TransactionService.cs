@@ -1,12 +1,13 @@
+using System.Threading.Tasks;
 using TransactionApi.Models;
 
 namespace TransactionApi.Services
 {
-    public class TransactionService
+    public class TransactionService : ITransactionService
     {
-        public IEnumerable<Transaction> GetSampleTransactions()
+        public async Task<IEnumerable<Transaction>> GetSampleTransactionsAsync()
         {
-            return new List<Transaction>
+            var transactions = new List<Transaction>
             {
                 new Transaction(100.50m, "USD", new DateTime(2023, 10, 26, 8, 30, 0)),
                 new Transaction(75.00m, "USD", new DateTime(2023, 10, 26, 14, 45, 0)),
@@ -16,9 +17,17 @@ namespace TransactionApi.Services
                 new Transaction(99.99m, "EUR", new DateTime(2023, 10, 27, 16, 30, 0)),
                 new Transaction(300.00m, "JPY", new DateTime(2023, 10, 27, 12, 0, 0)),
             };
+
+            return await Task.FromResult(transactions);
         }
 
-        public Dictionary<string, Dictionary<string, decimal>> CalculateDailyTotals(IEnumerable<Transaction> transactions)
+        public async Task<Dictionary<string, Dictionary<string,decimal>>> CalculateDailyTotalsAsync(IEnumerable<Transaction> transactions)
+        {
+            var result = CalculateDailyTotals(transactions);
+            return await Task.FromResult(result); 
+        }
+
+        private Dictionary<string, Dictionary<string, decimal>> CalculateDailyTotals(IEnumerable<Transaction> transactions)
         {
             if (transactions == null || !transactions.Any())
             {

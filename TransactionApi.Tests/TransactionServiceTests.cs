@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using TransactionApi.Models;
 using TransactionApi.Services;
 using Xunit; 
@@ -14,29 +15,29 @@ namespace TransactionApi.Tests
         }
 
         [Fact] 
-        public void CalculateDailyTotals_WithNullInput_ReturnsEmptyDictionary()
+        public async Task CalculateDailyTotals_WithNullInput_ReturnsEmptyDictionary()
         {
             List<Transaction>? transactions = null;
 
-            var result = _service.CalculateDailyTotals(transactions!);
+            var result = await _service.CalculateDailyTotalsAsync(transactions!);
 
             Assert.NotNull(result); // Should not be null
             Assert.Empty(result); // Shuold be empty 
         }
 
         [Fact]
-        public void CalculateDailyTotals_WithEmptyList_ReturnsEmptyDictionary()
+        public async Task CalculateDailyTotals_WithEmptyList_ReturnsEmptyDictionary()
         {
             var transactions = new List<Transaction>(); 
 
-            var result = _service.CalculateDailyTotals(transactions);
+            var result = await _service.CalculateDailyTotalsAsync(transactions);
 
             Assert.NotNull(result);
             Assert.Empty(result);
         }
 
         [Fact] 
-        public void CalculateDailyTotals_WithMultipleTransactions_ReturnsCorrectlyNestedAndSummedTotals()
+        public async Task CalculateDailyTotals_WithMultipleTransactions_ReturnsCorrectlyNestedAndSummedTotals()
         { 
             var transactions = new List<Transaction> 
             { 
@@ -61,7 +62,7 @@ namespace TransactionApi.Tests
             var day1 = "2023-10-26"; 
             var day2 = "2023-10-27"; 
 
-            var result = _service.CalculateDailyTotals(transactions);
+            var result = await _service.CalculateDailyTotalsAsync(transactions);
 
             Assert.Equal(3, result.Count);
 
