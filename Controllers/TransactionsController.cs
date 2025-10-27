@@ -10,7 +10,7 @@ namespace TransactionApi.Controllers
         private readonly ITransactionService _transactionService;
 
         private readonly ILogger<TransactionsController> _logger;
-        public TransactionsController(TransactionService transactionService, ILogger<TransactionsController> logger)
+        public TransactionsController(ITransactionService transactionService, ILogger<TransactionsController> logger)
         {
             _transactionService = transactionService;
             _logger = logger;

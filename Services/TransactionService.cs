@@ -4,6 +4,11 @@ namespace TransactionApi.Services
 {
     public class TransactionService : ITransactionService
     {
+
+        public TransactionService()
+        {
+            
+        }
         public async Task<IEnumerable<Transaction>> GetSampleTransactionsAsync()
         {
             var transactions = new List<Transaction>
