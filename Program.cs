@@ -7,7 +7,7 @@ builder.WebHost.UseUrls("http://+:8080");
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddSingleton<TransactionService>();
+builder.Services.AddSingleton<ITransactionService, TransactionService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
