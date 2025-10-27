@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using TransactionApi.Models;
 
 namespace TransactionApi.Services
