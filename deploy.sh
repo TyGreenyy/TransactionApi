@@ -10,7 +10,7 @@ image_name="transaction-api"
 ecr_uri="$aws_account_id.dkr.ecr.$aws_region.amazonaws.com/$image_name:latest"
 
 echo "Step 1: Building the Docker image..."
-docker build -t --platform linux/amd64 $image_name .
+docker build --platform linux/amd64 -t $image_name .
 
 echo "Step 2: Tagging the image for ECR..."
 docker tag $image_name:latest $ecr_uri
