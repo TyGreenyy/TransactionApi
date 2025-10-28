@@ -3,6 +3,9 @@
 # VS Code
 .vscode/
 
+# Ignore all SQL scripts
+*.sql
+
 # Visual Studio / Rider
 .vs/
 .idea/

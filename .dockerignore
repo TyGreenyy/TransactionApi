@@ -6,6 +6,7 @@
 **/.gitignore
 **/.vs
 **/.vscode
+**/.sql
 **/bin
 **/obj
 **/docker-compose.yml
