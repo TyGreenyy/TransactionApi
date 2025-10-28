@@ -48,6 +48,12 @@ app.UseSwaggerUI(options =>
     {
         options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
     }
+
+    options.DisplayRequestDuration();
+    options.EnableTryItOutByDefault();
+    options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.List);
+    options.DefaultModelRendering(Swashbuckle.AspNetCore.SwaggerUI.ModelRendering.Model);
+    options.DefaultModelsExpandDepth(-1);
 });
 
 // app.UseHttpsRedirection();
