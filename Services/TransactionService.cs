@@ -1,28 +1,23 @@
 using TransactionApi.Models;
+using TransactionApi.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace TransactionApi.Services
 {
     public class TransactionService : ITransactionService
     {
 
-        public TransactionService()
+        private readonly TransactionContext _context;
+
+        public TransactionService(TransactionContext context)
         {
-            
+            _context = context;
         }
+
         public async Task<IEnumerable<Transaction>> GetSampleTransactionsAsync()
         {
-            var transactions = new List<Transaction>
-            {
-                new Transaction(100.50m, "USD", new DateTime(2023, 10, 26, 8, 30, 0)),
-                new Transaction(75.00m, "USD", new DateTime(2023, 10, 26, 14, 45, 0)),
-                new Transaction(200.00m, "EUR", new DateTime(2023, 10, 26, 9, 0, 0)),
-                new Transaction(50.25m, "USD", new DateTime(2023, 10, 27, 10, 15, 0)),
-                new Transaction(150.75m, "EUR", new DateTime(2023, 10, 27, 11, 0, 0)),
-                new Transaction(99.99m, "EUR", new DateTime(2023, 10, 27, 16, 30, 0)),
-                new Transaction(300.00m, "JPY", new DateTime(2023, 10, 27, 12, 0, 0)),
-            };
-
-            return await Task.FromResult(transactions);
+            var results = await _context.Transactions.ToListAsync();
+            return results;
         }
 
         public async Task<Dictionary<string, Dictionary<string,decimal>>> CalculateDailyTotalsAsync(IEnumerable<Transaction> transactions)

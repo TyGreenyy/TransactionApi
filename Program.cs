@@ -4,10 +4,16 @@ using Asp.Versioning.ApiExplorer;
 using TransactionApi.Swagger;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using Microsoft.EntityFrameworkCore;
+using TransactionApi.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.WebHost.UseUrls("http://+:8080");
+
+var connectionString = builder.Configuration.GetConnectionString("TransactionsDb");
+builder.Services.AddDbContext<TransactionContext>(options =>
+    options.UseSqlServer(connectionString));
 
 // Add services to the container.
 
@@ -25,7 +31,7 @@ builder.Services.AddApiVersioning(options =>
     options.SubstituteApiVersionInUrl = true;
 });
 
-builder.Services.AddSingleton<ITransactionService, TransactionService>();
+builder.Services.AddScoped<ITransactionService, TransactionService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 builder.Services.AddSwaggerGen();
